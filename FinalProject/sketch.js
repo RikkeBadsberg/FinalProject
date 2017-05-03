@@ -1,38 +1,62 @@
 var circles = [];
 var numClicks = 0;
-var date; 
+var currentDate;
+var startDate;
+var feed;
+var dot = [];
+
+function preload() {
+    feed = loadImage("assets/feed.png");
+
+}
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    var date = new Date();
-    console.log(date);
+    startDate = new Date();
+    //frameRate(10);
 }
 
 function draw() {
-    background(0);
+    
+    currentDate = new Date();
+    background(feed);
+
+    fill(0, 0, 0, 150);
+    rect(0, 0, 250, windowHeight);
+
     stroke(0, 204, 0);
+    strokeWeight(3);
+    
     line(mouseX, 0, mouseX, windowHeight);
     line(0, mouseY, windowWidth, mouseY);
-    //console.log(minute());
-
+    
     noStroke();
     fill(0, 204, 0);
     textFont("Courier New");
     textSize(20);
     textStyle(BOLD);
-    text("Mouse position: " + mouseX + " , " + mouseY, 10, 30);
-    text("Session time", 10, 70);
-    //display time for opening program
-    text("Start: " + hour() + minute() + second() /*date.toString()*/, 10, 150);
-
-    //display number of clicks 
-    text("Number of clicks: " + numClicks, 10, 110);
     
+    //text(currentDate.getHours() + "." + currentDate.getMinutes() + "." + currentDate.getSeconds(), 10, 80);
+    text(startDate.toLocaleDateString()+ " " + startDate.toLocaleTimeString(), 10, 20);
+    text(currentDate.toLocaleDateString() + " " + currentDate.toLocaleTimeString(), 10, 50);
+    text(currentDate - startDate, 10, 80);
+
+    
+   
+
+    text(mouseX + " , " + mouseY, 10, 110);
+    text((mouseX - pmouseX).toString() + " , " + (mouseY - pmouseY).toString(), 10, 140);
+    //display time for opening program
+    //display number of clicks 
+    text(numClicks, 10, 170);
+
+    strokeWeight(1);
     //display all circles in array
     for (var i = 0; i < circles.length; i++) {
         circles[i].display();
     }
     //nice to have: remove circles from array 
+
 }
 
 
@@ -42,4 +66,8 @@ function mouseClicked() {
 
     //increases by one for each mouse click
     numClicks++;
+
+    //draws a red dot on where the mouse is, when it is clicked
+    fill(255, 0, 0);
+    ellipse(2, 2, mouseX, mouseY);
 }
