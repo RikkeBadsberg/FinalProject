@@ -3,10 +3,14 @@ var numClicks = 0;
 var currentDate;
 var startDate;
 var feed;
-var dot = [];
+var dots = [];
+var marker;
+var lines = [];
 
 function preload() {
     feed = loadImage("assets/feed.png");
+    marker = loadImage("assets/marker.png");
+
 
 }
 
@@ -21,6 +25,7 @@ function draw() {
     currentDate = new Date();
     background(feed);
 
+    noStroke();
     fill(0, 0, 0, 150);
     rect(0, 0, 250, windowHeight);
 
@@ -55,6 +60,14 @@ function draw() {
     for (var i = 0; i < circles.length; i++) {
         circles[i].display();
     }
+
+    for (var i = 0; i < dots.length; i++) {
+        dots[i].display();
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+        lines[i].display();
+    }
     //nice to have: remove circles from array 
 
 }
@@ -67,7 +80,10 @@ function mouseClicked() {
     //increases by one for each mouse click
     numClicks++;
 
-    //draws a red dot on where the mouse is, when it is clicked
-    fill(255, 0, 0);
-    ellipse(2, 2, mouseX, mouseY);
+    //draws a location marker where the mouse is when it is clicked
+    dots[dots.length] = new mouseDot(mouseX, mouseY, marker);
+
+    if (dots.length > 1) {
+        //GØR LIGE DET HER
+    }
 }
