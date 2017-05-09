@@ -1,18 +1,18 @@
-
 function MouseClickCircle(positionX, positionY) {
     this.posX = positionX;
     this.posY = positionY;
     this.radius = 5;
     this.fillOpacity = 150;
     this.strokeOpacity = 255;
-    //this.speed = 1;
+   
 
     this.display = function () {
+        //display circle when radius is under 300 (when circle is faded)
         if (this.radius < 300) {
             
             //change radius: increase radius
             this.radius++;
-            //console.log(this.radius);
+
             //change opacity: decrease opacity of fill and stroke (different speed)
             this.fillOpacity--;
             this.strokeOpacity -= 0.5; //slower than fill

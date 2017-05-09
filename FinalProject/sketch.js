@@ -1,40 +1,43 @@
 var circles = [];
+var markers = [];
+
 var numClicks = 0;
 var currentDate;
 var startDate;
 var sessionTime;
+
 var feed;
-var dots = [];
 var marker;
-var lines = [];
+
 
 function preload() {
-    feed = loadImage("assets/feed.png");
-    marker = loadImage("assets/marker.png");
+    feed = loadImage("assets/feed.png"); //background picture
+    marker = loadImage("assets/marker.png"); //location marker 
 }
+
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     startDate = new Date();
-
-    //frameRate(10);
 }
 
-function draw() {
 
+function draw() {
     currentDate = new Date();
     background(feed);
 
+    //data box behind green variables
     noStroke();
     fill(0, 0, 0, 150);
     rect(0, 0, 250, windowHeight);
 
+    //mouse coordinate lines/cross hairs
     stroke(0, 204, 0);
     strokeWeight(3);
-
     line(mouseX, 0, mouseX, windowHeight);
     line(0, mouseY, windowWidth, mouseY);
 
+    //text style
     noStroke();
     fill(0, 204, 0);
     textFont("Courier New");
@@ -49,9 +52,10 @@ function draw() {
     sessionTime = currentDate - startDate;
     text(sessionTime, 10, 80);
 
+    //mouse movement factor (pixels pr frame)
     text(mouseX + " , " + mouseY, 10, 110);
     text((mouseX - pmouseX) + " , " + (mouseY - pmouseY), 10, 140);
-    //display time for opening program
+
     //display number of clicks 
     text(numClicks, 10, 170);
 
@@ -61,14 +65,10 @@ function draw() {
         circles[i].display();
     }
 
-    for (var i = 0; i < dots.length; i++) {
-        dots[i].display();
+    //display coordinate markers
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].display();
     }
-
-    for (var i = 0; i < lines.length; i++) {
-        lines[i].display();
-    }
-    //nice to have: remove circles from array 
 
 }
 
@@ -81,10 +81,6 @@ function mouseClicked() {
     numClicks++;
 
     //draws a location marker where the mouse is when it is clicked
-    dots[dots.length] = new mouseDot(mouseX, mouseY, marker, new Date(), sessionTime);
+    markers[markers.length] = new mouseDot(mouseX, mouseY, marker, new Date(), sessionTime);
 
-    //draw line?
-    if (dots.length > 1) {
-        //GØR LIGE DET HER
-    }
 }
